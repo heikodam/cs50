@@ -44,5 +44,6 @@ int main(int argc, string argv[])
     {
         printf("You forgot to enter a key...\n");
         printf("Arguments Entered: %i , Arguments Expected: 1 \n", argc - 1);
+        return 1;
     }
 }
