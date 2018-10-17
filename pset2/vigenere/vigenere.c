@@ -22,6 +22,8 @@ int main(int argc, string argv[])
 
         // k is the key value, how many positions should you move
         int k;
+        //keeptrack of k position
+        int cp = 0;
         //get text to cypher
         string p = get_string("plaintext: ");
         printf("ciphertext: ");
@@ -31,17 +33,21 @@ int main(int argc, string argv[])
         {
             if(isalpha(p[i]))
             {
-                if(isupper(keyword[i % strlen(keyword)]))
+
+                if(isupper(keyword[cp % strlen(keyword)]))
                 {
-                     k = keyword[i % strlen(keyword)] - 65;
+                     k = keyword[cp % strlen(keyword)] - 65;
+                     //printf("\nk: %i cp: %i ", k, cp);
+                     cp++;
                 } else if (islower(keyword[i % strlen(keyword)]))
                 {
-                    k = keyword[i % strlen(keyword)] - 97;
+                    k = keyword[cp % strlen(keyword)] - 97;
+                    //printf("\nk: %i cp: %i ", k, cp);
+                    cp++;
                 }
+
                 if(isupper(p[i]))
                 {
-
-
                     int a = (int)p[i] - 65;
                     a += k;
                     a = a % 26;
