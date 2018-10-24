@@ -14,7 +14,6 @@ int duration(string fraction)
 int frequency(string note)
 {
     // TODO
-
 }
 
 // Determines whether a string represents a rest
