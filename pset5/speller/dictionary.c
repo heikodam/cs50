@@ -78,7 +78,7 @@ unsigned int size(void)
         x++;
         curser = curser->next;
     }
-    return x;
+    return x-1;
 }
 
 // Unloads dictionary from memory, returning true if successful else false
@@ -91,5 +91,8 @@ bool unload(void)
         curser = curser->next;
         free(temp);
     }
+    free(curser);
+    free(head);
+
     return true;
 }

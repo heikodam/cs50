@@ -11,9 +11,9 @@
 
 typedef struct node
 {
-    char word[LENGTH + 1];
-    struct node *next;
+    bool isWord;
+    struct node *nextLetter[28];
 }
 node;
 
-#endif // DICTIONARY_H
+#endif // DICTIONARY_
