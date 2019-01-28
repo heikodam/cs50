@@ -11,15 +11,16 @@
 
 typedef struct node
 {
-    char word[LENGTH + 1];
-    struct node *next;
+    bool isWord;
+    struct node *nextLetter[27];
 }
 node;
 
 // Prototypes
-bool check(char *word);
+bool check(const char *word);
 bool load(const char *dictionary);
 unsigned int size(void);
 bool unload(void);
+//bool destroy(node *head);
 
 #endif // DICTIONARY_H

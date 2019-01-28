@@ -5,8 +5,17 @@
 #include <math.h>
 
 int main(void){
-    char c = 'a';
-    int n = (int) c;
-    printf("%i\n", n);
+
+    int i = 0;
+    while(i != 9){
+        printf("%i\n",i);
+        i ++;
+        if(i > 50){
+            break;
+        }
+        i++;
+    }
+
+   return 0;
 
 }

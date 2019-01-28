@@ -23,15 +23,12 @@ int main(void){
         secondDigits /= 100;
 
     }
-    //printf("%i\n", secondDigitsMultipliedSum);
-
 
     long long int firstDigits = cardNumber;
     while(firstDigits){
         secondDigitsMultipliedSum += firstDigits % 10;
         firstDigits /= 100;
     }
-    //printf("%i\n", secondDigitsMultipliedSum);
 
     char cardLenS[50];
     snprintf(cardLenS, 50, "%lli", cardNumber);
@@ -59,9 +56,9 @@ int main(void){
         if(firstNumber == 34 || firstNumber == 37){
             printf("AMEX\n");
         } else if(firstNumber > 50 && firstNumber < 56){
-            printf("MasterCard\n");
+            printf("MASTERCARD\n");
         } else if(firstNumber / 10 == 4){
-            printf("Visa\n");
+            printf("VISA\n");
         } else {
             printf("INVALID\n");
         }

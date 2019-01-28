@@ -16,83 +16,171 @@
 
 
 node *head;
+int DicSize;
 
 
 // Returns true if word is in dictionary else false
-bool check(char *word)
+bool check(const char *word)
 {
+    char tempWord[strlen(word)];
+    strcpy(tempWord, word);
+    node *temp = head;
+    for(int i = 0; i < strlen(tempWord);i++){
+        tempWord[i] = tolower(tempWord[i]);
 
+        int pos;
+        if(tempWord[i] > '\''){
+                pos = tempWord[i] - 'a';
+            } else {
+                pos = 26;
+            }
 
-    //check if word in list
-    node *curser = head;
+        if(temp->nextLetter[pos] == NULL){
 
-    for(int i = 0; i < strlen(word); i++){
-        word[i] = tolower(word[i]);
+            return false;
+        }
+        temp = temp->nextLetter[pos];
     }
-
-    while(curser != NULL){
-
-        if(strcmp(word, curser->word) == 0){
+    if(temp->isWord){
             return true;
+        } else {
+            return false;
         }
 
-        curser = curser->next;
-    }
-    return false;
 }
 
 // Loads dictionary into memory, returning true if successful else false
 bool load(const char *dictionary)
 {
-
-    head = malloc(sizeof(node));
+    DicSize = 0;
     //opens the file
     FILE *file = fopen(dictionary, "r");
 
+    head = calloc(1,sizeof(node));
+    head->isWord = false;
+
     char word[LENGTH + 1];
+    //loop through words
     while(fscanf(file, "%s", word) != EOF){
+        DicSize++;
+        node *temp = head;
+        //loop through char's of current word
+        for(int x = 0; x < strlen(word); x++){
+            char letter = word[x];
+            //get the index fo char
+            int index;
+            if(letter > '\''){
+                index = letter - 'a';
+            } else {
+                index = 26;
+            }
 
-        node *new_node = malloc(sizeof(node));
-        if(new_node == NULL){
-            free(new_node);
-            return false;
+            if(temp -> nextLetter[index] == NULL){
+                //create new node, in that index and go to that node
+                node *new_node = calloc(1,sizeof(node));
+                new_node->isWord = false;
+                temp->nextLetter[index] = new_node;
+            }
+            //go to the node that pointer is pointing to
+            temp = temp->nextLetter[index];
         }
-
-        strcpy(new_node->word, word);
-        new_node->next = head;
-        head = new_node;
-
+        // indicate that there is the end of a word
+        temp->isWord = true;
     }
-
+    fclose(file);
     return true;
 }
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
-    node *curser = head;
-    int x = 0;
+    // node *curser = head;
+    // int x = 0;
 
-    while(curser != NULL){
+    // while(curser != NULL){
 
-        x++;
-        curser = curser->next;
-    }
-    return x-1;
+    //     x++;
+    //     curser = curser->next;
+    // }
+    return DicSize;
 }
 
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
+
+    // destroy(head);
+    // //free(head);
+    // return true;
+
     node *curser = head;
+    bool isEmpty = true;
+    node *temp;
+    int count;
 
     while(curser != NULL){
-        node *temp = curser;
-        curser = curser->next;
-        free(temp);
-    }
-    free(curser);
-    free(head);
+        isEmpty = true;
+        for(int i = 0; i < 27; i++){
 
+
+            //if there is a pointer to another node go to that node
+            if(curser->nextLetter[i] != NULL){
+                //printf("i: %i \n", i);
+                temp = curser;
+                count = i;
+                curser = curser->nextLetter[i];
+                isEmpty = false;
+                break;
+            }
+        }
+        //if there are only NULL Pointers in that node free that node
+            if(isEmpty){
+                if(curser == head){
+                    free(curser);
+                    break;
+                }
+                //printf("Freeing\n");
+                temp -> nextLetter[count] = NULL;
+                free(curser);
+                curser = head;
+            }
+    }
     return true;
+
+
+
+
+
+    // node *curser = head;
+
+    // while(curser != NULL){
+    //     node *temp = curser;
+    //     curser = curser->next;
+    //     free(temp);
+    // }
+    // free(curser);
+    // free(head);
+
+
 }
+
+
+// bool destroy(node *curNod)
+// {
+//     //printf("going into destroy\n");
+//     // Recursively delete Trie
+//     if (curNod)
+//     {
+
+//         for (int i = 0; i < 27; i++)
+//         {
+
+//             // Free children if avaible
+//             if (curNod->nextLetter[i]){
+//               destroy(curNod->nextLetter[i]);
+//             }
+//         }
+//         free(curNod);
+//     }
+//     return 1;
+// }

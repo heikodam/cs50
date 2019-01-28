@@ -7,7 +7,7 @@ int main(void){
 
     do {
         height = get_int("Height: ");
-    } while (height <= 0 && height > 25);
+    } while (height <= 0 || height > 25);
 
     char hash = '#';
     char space = ' ';

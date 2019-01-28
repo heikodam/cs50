@@ -37,12 +37,10 @@ int main(int argc, string argv[])
                 if(isupper(keyword[cp % strlen(keyword)]))
                 {
                      k = keyword[cp % strlen(keyword)] - 65;
-                     //printf("\nk: %i cp: %i ", k, cp);
                      cp++;
                 } else if (islower(keyword[i % strlen(keyword)]))
                 {
                     k = keyword[cp % strlen(keyword)] - 97;
-                    //printf("\nk: %i cp: %i ", k, cp);
                     cp++;
                 }
 

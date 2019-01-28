@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     new_bi.biWidth *= n;
     new_bi.biHeight *= n;
     new_bi.biSizeImage = bi.biSizeImage * n * n;
-    new_bf.bfSize = bi.biSizeImage + sizeof(BITMAPINFOHEADER) + sizeof(BITMAPFILEHEADER);
+    new_bf.bfSize = new_bi.biSizeImage + sizeof(BITMAPINFOHEADER) + sizeof(BITMAPFILEHEADER);
 
     //END OF MY CODE
 

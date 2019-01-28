@@ -19,6 +19,9 @@ int main(void){
     int penny = 1;
 
     int rest = 0;
+
+
+
     if(newuserchange >= quarter){
         rest = newuserchange%quarter;
         coincount += (newuserchange - rest)/quarter;
@@ -40,17 +43,8 @@ int main(void){
         newuserchange = newuserchange - (((newuserchange - rest)/penny)*penny);
     }
 
+
     printf("%i\n", coincount);
-
-    // int countCoinFit (int amount){
-    //     printf('%i', amount);
-    //     // while(newamount >= coin){
-    //     //     count = newamount % coin;
-    //     //     newamount = newamount - (coin*count);
-    //     // }
-    // }
-
-    // countCoinFit(quarter);
 
 
 }

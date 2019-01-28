@@ -10,13 +10,8 @@
 // Converts a fraction formatted as X/Y to eighths
 int duration(string fraction)
 {
-    //char *cha = "2";
-    //int fv = atoi(cha);
-    //int fv = atoi(char t);
-    //int sv = atoi("%s", fraction[2]);
-    //int sv = (int) (fraction - "0");
-    int fv = atoi(fraction[0]);
-    int sv = atoi(fraction[2]);
+    int fv = atoi(&fraction[0]);
+    int sv = atoi(&fraction[2]);
     fv = (8 / sv) * fv;
     return fv;
 
@@ -31,52 +26,54 @@ int frequency(string note)
     int len = strlen(note);
 
     //changes frequences on the same Octave to that Letter
-    switch(note[0]){
-        case "A":
-            df = 440 * pow(2, 0);
+    char c = note[0];
+    switch(c){
+        case 'A':
+            df = 440 * pow(2.00, 0);
+
         break;
-        case "B":
-            df = 440 * pow(2, 2/12);
+        case 'B':
+            df = 440 * pow(2.00, 2.00/12.00);
         break;
-        case "C":
-            df = 440 * pow(2, (-9)/12);
+        case 'C':
+            df = 440 * pow(2.00, (-9.00)/12.00);
         break;
-        case "D":
-            df = 440 * pow(2, (-7)/12);
+        case 'D':
+            df = 440 * pow(2.00, (-7.00)/12.00);
         break;
-        case "E":
-            df = 440 * pow(2, (-5)/12);
+        case 'E':
+            df = 440 * pow(2.00, (-5.00)/12.00);
         break;
-        case "F":
-            df = 440 * pow(2, (-4)/12);
+        case 'F':
+            df = 440 * pow(2.00, (-4.00)/12.00);
         break;
-        case "G":
-            df = 440 * pow(2, (-2)/12);
+        case 'G':
+            df = 440 * pow(2.00, (-2.00)/12.00);
         break;
     }
 
     //check and changes frequences if there are # or b
     if(len > 2){
-        if(strcmp(note[1], "#") == 0){
-            df = df * pow(2, (1/12));
-        } else if(strcmp(note[1], "b") == 0){
-            df = df / pow(2, (1/12));
+        if(note[1] == '#'){
+            df = df * pow(2.00, (1.00/12.00));
+        } else if(note[1] == 'b'){
+            df = df * pow(2.00, (-1.00/12.00));
         }
     }
 
     //change the Octave
-    int octave = atoi(note[len - 1]) - 4;
-    df = pow(2, octave) * 440;
+    double octave = atoi(&note[len - 1]) - 4;
+    df = pow(2.00, octave) * df;
 
     //return an Hz in an int
-    int f = (int) df;
-    return len;
+    int f = (int) round(df);
+    return f;
 }
 
 // Determines whether a string represents a rest
 bool is_rest(string s)
 {
-    if(!s){
+    if(!strcmp(s, "")){
         return true;
     }
     return false;
