@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <div class="col">
+        <form action="/compare" enctype="multipart/form-data" method="post">
+
+            <!-- TODO -->
+            File1: <input type="file" name="file1">
+            File2: <input type="file" name="file2">
+            <br>
+            Which Algorithm would you like:
+            Lines: <input type = "radio" name = "algorithm" value = "lines">
+            Sentences: <input type = "radio" name = "algorithm" value = "sentences">
+            Substrings: <input type = "radio" name = "algorithm" value = "substrings">
+            What is the length for the Substrings: <input type = "number" name="length">
+            <input type = "submit">Compare</button>
+        </form>
+    </div>
+
+{% endblock %}
